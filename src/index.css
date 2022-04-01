@@ -1,13 +1,53 @@
+@import url("https://dash-css.netlify.app/css/style.css");
+:root{
+  --secondary-background: #ebf8efff;
+  --primary-color: #3f945cff;
+  --primary-background: #dbfae5ff;
+  --white: #ffffffff;
+  --body-background: #e7e7e7ff;
+  --black: #131313ff;
+  --secondary-background: #7b9c85ff;
+}
 body {
-  margin: 0;
+  margin:  0 ;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--body-background);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.landing_page_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+}
+.landing_page_container_left{
+  /* flex flex-col flex-jc-space-around gap-m */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 1rem;
+
+}
+.landing_page_container_right{
+  height: 100%;
+}
+.landing_page_hero{
+  width: 100%;
+  height: 100%;
+}
+.text-primary{
+  color: var(--primary-color);
 }
