@@ -1,9 +1,12 @@
 import React from 'react'
+import LoginForm from '../components/LoginForm'
+import Nav from '../components/Nav'
 
-function LogIn() {
+export default function LogIn() {
   return (
-    <div>LogIn</div>
+    <div>
+      <Nav />
+      <LoginForm />
+    </div>
   )
 }
-
-export default LogIn

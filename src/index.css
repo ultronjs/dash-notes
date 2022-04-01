@@ -1,4 +1,7 @@
 @import url("https://dash-css.netlify.app/css/style.css");
+@import url("https://pro.fontawesome.com/releases/v5.10.0/css/all.css");
+@import url("https://pro.fontawesome.com/releases/v6.0.0/css/all.css");
+
 :root{
   --secondary-background: #ebf8efff;
   --primary-color: #3f945cff;
@@ -21,6 +24,29 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+/*Navigation Custom CSS*/
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--white);
+    color:var(--black) !important;
+    padding: 0.5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+.img_logo{
+    height: 3.125rem;
+    width: 12.5rem;
+}
+/*Custom size of icon for the nav bar*/
+.link_wrapper{
+    text-decoration: none;
+    color: inherit;
 }
 .landing_page_container{
   display: flex;
@@ -49,4 +75,63 @@ code {
 }
 .text-primary{
   color: var(--primary-color);
+}
+/*Form Container for the form such as (Loign,SignUp)*/
+.form_container{
+    padding-top: 4.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form{
+    background-color: white;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: fit-content;
+    width: 50%;
+    border-radius: 25px;
+    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%),
+    0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 1px 3px 0 rgb(0 0 0 / 12%);
+}
+.form_img{
+    padding-bottom: .2rem ;
+}
+.form_header{
+    margin-top: .4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.2rem;
+}
+.sign_up{
+    height: 38rem;
+}
+.login_password_label{
+    display: flex;
+    justify-content: space-between;
+}
+.input_group{
+    width: 80%;
+}
+.input_icon{
+    display: flex;
+    margin-left: auto;
+    position: relative;
+    bottom: 1.875rem;
+    padding-right: 5px;
+    cursor: pointer;
+}
+.form a,.cart_price_containerf a{
+    text-decoration: underline;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+.toast_rightside{
+    position: fixed;
+    right: 10px;
+    top: 6rem;
+    z-index: 1;
 }

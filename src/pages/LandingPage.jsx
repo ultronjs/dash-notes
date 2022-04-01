@@ -26,7 +26,7 @@ function LandingPage() {
         </div>
       </div>
       <div className="landing_page_container_right">
-        <img className="landing_page_hero" src="assets/notes-cuate.png"></img>
+        <img className="landing_page_hero" src="assets/notes-cuate-min.png"></img>
       </div>
     </div>
   );
