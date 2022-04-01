@@ -33,7 +33,6 @@ code {
   box-sizing: border-box;
 }
 .landing_page_container_left{
-  /* flex flex-col flex-jc-space-around gap-m */
   height: 100%;
   display: flex;
   flex-direction: column;
