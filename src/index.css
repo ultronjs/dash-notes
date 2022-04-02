@@ -31,7 +31,7 @@ code {
     justify-content: space-between;
     align-items: center;
     background-color: var(--white);
-    color:var(--black) !important;
+    color:var(--black);
     padding: 0.5rem;
     position: fixed;
     top: 0;
