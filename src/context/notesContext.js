@@ -111,67 +111,67 @@ const NotesProvider = ({children}) => {
       console.log(note);
       notesDispatch({ type: "ADD_NOTE", payload: note });
       archiveNotesDispatch({ type: "REMOVE_NOTE", payload: note._id });
-      try {
-        const { status, data } = await privateInstance({
-          method: "post",
-          url: `/notes/archives/${note._id}`,
-          data: {
-            note,
-          },
-        });
-        if (status === 201) {
-          archiveNotesDispatch({ type: "ADD_ARCHIVE_NOTE", payload: note });
-          return data;
-        }
-      } catch (error) {
-        addToast({
-          type: "Error",
-          msg: "Unable to Add Note to Archive",
-        });
-        console.error(error);
-      }
+      // try {
+      //   const { status, data } = await privateInstance({
+      //     method: "post",
+      //     url: `/notes/archives/${note._id}`,
+      //     data: {
+      //       note,
+      //     },
+      //   });
+      //   if (status === 201) {
+      //     archiveNotesDispatch({ type: "ADD_ARCHIVE_NOTE", payload: note });
+      //     return data;
+      //   }
+      // } catch (error) {
+      //   addToast({
+      //     type: "Error",
+      //     msg: "Unable to Add Note to Archive",
+      //   });
+      //   console.error(error);
+      // }
     };   
     const restoreNoteFromArchiveNote = async (note) => {
       archiveNotesDispatch({ type: "DELETE_ARCHIVE_NOTE", payload: note._id });
       notesDispatch({ type: "ADD_NOTE", payload: note });
-      try {
-        const { status, data } = await privateInstance({
-          method: "post",
-          url: `/notes/archives/restore/${note._id}`,
-          data: {},
-        });
-        if (status === 201) {
-          archiveNotesDispatch({ type: "DELETE_ARCHIVE_NOTE", payload: note });
-          notesDispatch({ type: "ADD_NOTE", payload: note });
-          return data;
-        }
-      } catch (error) {
-        addToast({
-          type: "Error",
-          msg: "Unable to Restore Note from Archive",
-        });
-        console.error(error);
-      }
+      // try {
+      //   const { status, data } = await privateInstance({
+      //     method: "post",
+      //     url: `/notes/archives/restore/${note._id}`,
+      //     data: {},
+      //   });
+      //   if (status === 201) {
+      //     archiveNotesDispatch({ type: "DELETE_ARCHIVE_NOTE", payload: note });
+      //     notesDispatch({ type: "ADD_NOTE", payload: note });
+      //     return data;
+      //   }
+      // } catch (error) {
+      //   addToast({
+      //     type: "Error",
+      //     msg: "Unable to Restore Note from Archive",
+      //   });
+      //   console.error(error);
+      // }
 
     }
     const deleteNoteFromArchiveNote = async (note) => {
       archiveNotesDispatch({ type: "DELETE_ARCHIVE_NOTE", payload: note });
-      try {
-        const { status, data } = await privateInstance({
-          method: "delete",
-          url: `/notes/archives/delete/${note._id}`,
-        });
-        if (status === 201) {
-          archiveNotesDispatch({ type: "DELETE_ARCHIVE_NOTE", payload: note });
-          return data;
-        }
-      } catch (error) {
-        addToast({
-          type: "Error",
-          msg: "Unable to Delete Note from Archive",
-        });
-        console.error(error);
-      }
+      // try {
+      //   const { status, data } = await privateInstance({
+      //     method: "delete",
+      //     url: `/notes/archives/delete/${note._id}`,
+      //   });
+      //   if (status === 201) {
+      //     archiveNotesDispatch({ type: "DELETE_ARCHIVE_NOTE", payload: note });
+      //     return data;
+      //   }
+      // } catch (error) {
+      //   addToast({
+      //     type: "Error",
+      //     msg: "Unable to Delete Note from Archive",
+      //   });
+      //   console.error(error);
+      // }
     };
 
     const [notes, notesDispatch] = useReducer(notesReducer, []);
