@@ -66,11 +66,11 @@ function AddNote() {
             setNote(noteInitialObj)
             setContent("")
           }} />
-          {note.archive ? (
+          {/* {note.archive ? (
             <BiArchiveOut size={25} onClick={changeArchiveStatus} />
           ) : (
             <BiArchiveIn size={25} onClick={changeArchiveStatus} />
-          )}
+          )} */}
           <MdLabelOutline size={25} />
           <button
             onClick={() => {

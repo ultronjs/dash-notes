@@ -13,7 +13,6 @@ import { v4 as uuid } from "uuid";
  * */
 
 export const getAllNotesHandler = function (schema, request) {
-  console.log(request)
   const user = requiresAuth.call(this, request);
   if (!user) {
     return new Response(
@@ -34,11 +33,8 @@ export const getAllNotesHandler = function (schema, request) {
  * */
 
 export const createNoteHandler = function (schema, request) {
-  console.log(request)
   const user = requiresAuth.call(this, request);
-  console.log(user)
   try {
-    console.log(user)
     if (!user) {
       return new Response(
         404,
@@ -48,17 +44,12 @@ export const createNoteHandler = function (schema, request) {
         }
       );
     }
-    console.log(JSON.parse(request.requestBody));
     const { note } = JSON.parse(request.requestBody);
-    console("DESTRUCTING NOTE",note)
     if (!note.tags) {
-      console.log("if stATEMENT")
       user.notes.push({ ...note, _id: uuid(), tags: [] });
     } else {
-      console.log("ELSE stATEMENT");
       user.notes.push({ ...note, _id: uuid() });
     }
-    console.log(" i am here")
     this.db.users.update({ _id: user._id }, user);
     return new Response(201, {}, { notes: user.notes });
   } catch (error) {

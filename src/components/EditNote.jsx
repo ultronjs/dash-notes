@@ -10,7 +10,7 @@ import { useNotes } from "../context";
 import ColorPallete from "./ColorPallete";
 
 function EditNote({ noteDetails, setEdit }) {
-  const { updateNote } = useNotes();
+  const { updateNote, addNoteToArchive } = useNotes();
   const editNoteObj = {
     _id: noteDetails._id,
     title: noteDetails.title,
@@ -68,7 +68,10 @@ function EditNote({ noteDetails, setEdit }) {
           {editNote.archive ? (
             <BiArchiveOut size={25} onClick={changeArchiveStatus} />
           ) : (
-            <BiArchiveIn size={25} onClick={changeArchiveStatus} />
+            <BiArchiveIn size={25} onClick={()=>{
+              changeArchiveStatus();
+              addNoteToArchive(editNote)
+            }} />
           )}
           <MdLabelOutline size={25} />
           {/* <MdLabelOutline size={25} />
