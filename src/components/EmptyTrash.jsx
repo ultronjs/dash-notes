@@ -1,11 +1,12 @@
 import React from 'react'
+import {Link} from "react-router-dom"
 
 function EmptyTrash() {
   return (
     <div className="flex flex-col flex-center py-small">
       <img
         className="empty_image"
-        src="/assets/empty-rafiki-min.png"
+        src="/assets/empty-bro-min.png"
         alt="EMPTY ARCHIVE"
       />
       <div className="h5 color_grey_200 text_center">

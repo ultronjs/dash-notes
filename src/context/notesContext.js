@@ -1,8 +1,7 @@
-import { createContext, useContext, useReducer } from "react"
+import { createContext, useContext, useReducer,useState } from "react"
 import { privateInstance } from "../utils/axios";
 import { notesReducer, archiveNotesReducer } from "../reducers";
 import { useToast } from "./toastContext";
-import { v4 as uuid } from "uuid";
 import parse from "html-react-parser";
 
 const NotesContext = createContext()
@@ -25,7 +24,7 @@ const NotesProvider = ({children}) => {
     };
 
     const postNote = async (notes,content) => {
-      const note = {...notes,description:parse(content).props.children,_id:uuid()}
+      const note = {...notes,description:parse(content).props.children}
       try {
         const { status, data } = await privateInstance({
           method: "post",
@@ -35,8 +34,8 @@ const NotesProvider = ({children}) => {
           },
         });
         if (status === 201) {
-          notesDispatch({ type: "ADD_NOTE", payload: note });
-          return data.notes;
+          notesDispatch({ type: "SET_DATA", payload: data.notes });
+          return {status,data};
         }
       } catch (error) {
         addToast({
@@ -47,14 +46,16 @@ const NotesProvider = ({children}) => {
       }
     };
 
-    const deleteNote = async (id) => {
+    const deleteNote = async (note) => {
+      console.log(note)
       try {
         const { status, data } = await privateInstance({
           method: "delete",
-          url: `/notes/${id}`,
+          url: `/notes/${note._id}`,
         });
         if (status === 200) {
-          notesDispatch({ type: "REMOVE_NOTE", payload: id });
+          notesDispatch({ type: "SET_DATA", payload: data.notes });
+          setTrashNotes((prevState) => prevState.concat(note))
           return data.notes;
         }
       } catch (error) {
@@ -81,7 +82,7 @@ const NotesProvider = ({children}) => {
           },
         });
         if (status === 201) {
-          notesDispatch({ type: "UPDATE_NOTE", payload: note });
+          notesDispatch({ type: "SET_DATA", payload: data.notes });
           return data.notes;
         }
       } catch (error) {
@@ -111,9 +112,6 @@ const NotesProvider = ({children}) => {
     };
 
     const addNoteToArchive = async (note) => {
-
-      // notesDispatch({ type: "ADD_NOTE", payload: note });
-      // archiveNotesDispatch({ type: "REMOVE_NOTE", payload: note._id });
       try {
         const { status, data } = await privateInstance({
           method: "post",
@@ -124,7 +122,8 @@ const NotesProvider = ({children}) => {
         });
         if (status === 201) {
           archiveNotesDispatch({ type: "ADD_ARCHIVE_NOTE", payload: note });
-          return data;
+          notesDispatch({ type: "SET_DATA", payload: data.notes });
+          return {status,data};
         }
       } catch (error) {
         addToast({
@@ -135,17 +134,18 @@ const NotesProvider = ({children}) => {
       }
     };   
     const restoreNoteFromArchiveNote = async (note) => {
-      // archiveNotesDispatch({ type: "DELETE_ARCHIVE_NOTE", payload: note._id });
-      // notesDispatch({ type: "ADD_NOTE", payload: note });
       try {
         const { status, data } = await privateInstance({
           method: "post",
-          url: `/notes/archives/restore/${note._id}`,
+          url: `/archives/restore/${note._id}`,
           data: {},
         });
-        if (status === 201) {
-          archiveNotesDispatch({ type: "DELETE_ARCHIVE_NOTE", payload: note });
-          notesDispatch({ type: "ADD_NOTE", payload: note });
+        if (status === 200) {
+          archiveNotesDispatch({
+            type: "SET_ARCHIVE_DATA",
+            payload: data.archives,
+          })
+          notesDispatch({ type: "SET_DATA", payload: data.notes });
           return data;
         }
       } catch (error) {
@@ -162,10 +162,14 @@ const NotesProvider = ({children}) => {
       try {
         const { status, data } = await privateInstance({
           method: "delete",
-          url: `/notes/archives/delete/${note._id}`,
+          url: `/archives/delete/${note._id}`,
         });
-        if (status === 201) {
-          archiveNotesDispatch({ type: "DELETE_ARCHIVE_NOTE", payload: note });
+        if (status === 200) {
+          setTrashNotes((prevState) => prevState.concat(note));
+          archiveNotesDispatch({
+            type: "SET_ARCHIVE_DATA",
+            payload: data.archives,
+          });
           return data;
         }
       } catch (error) {
@@ -176,26 +180,65 @@ const NotesProvider = ({children}) => {
         console.error(error);
       }
     };
+    const restoreTrashNoteToArchiveNotes = (note) => {
+      const {status}=addNoteToArchive(note)
+      if(status===201){
+        setTrashNotes((prevState) =>
+          prevState.filter((element) => element._id !== note._id)
+        );
+      }
+
+    }
+    const restoreTrashNoteToActiveNotes = async (note) => {
+      try {
+        const { status, data } = await privateInstance({
+          method: "post",
+          url: "/notes",
+          data: {
+            note
+          },
+        });
+        if (status === 201) {
+          notesDispatch({ type: "SET_DATA", payload: data.notes });
+          setTrashNotes((prevState) =>
+          prevState.filter((element) => element._id !== note._id)
+        );
+          return {status,data};
+        }
+      } catch (error) {
+        addToast({
+          type: "Error",
+          msg: "Unable to Add Note",
+        });
+        console.error(error);
+      }
+    }
 
     const [notes, notesDispatch] = useReducer(notesReducer, []);
     const [archiveNotes,archiveNotesDispatch] = useReducer(archiveNotesReducer,[])
-    return(
-        <NotesContext.Provider 
-            value= {{
-                notes,
-                getNotes,
-                postNote,
-                deleteNote,
-                updateNote,
-                archiveNotes,
-                getArchiveNotes,
-                addNoteToArchive,
-                restoreNoteFromArchiveNote,
-                deleteNoteFromArchiveNote
-            }}>
-            {children}
-        </NotesContext.Provider>
-    )
+    const [trashNotes,setTrashNotes] = useState([])
+    return (
+      <NotesContext.Provider
+        value={{
+          notes,
+          getNotes,
+          postNote,
+          deleteNote,
+          updateNote,
+          archiveNotes,
+          getArchiveNotes,
+          addNoteToArchive,
+          restoreNoteFromArchiveNote,
+          deleteNoteFromArchiveNote,
+          trashNotes,
+          setTrashNotes,
+          restoreTrashNoteToArchiveNotes,
+          restoreTrashNoteToActiveNotes,
+        }}
+      >
+        {children}
+      </NotesContext.Provider>
+    );
 }
 
 const useNotes = () => useContext(NotesContext)

@@ -4,6 +4,7 @@ import Menu from "../components/Menu";
 import "../index.css"
 import AddNote from '../components/AddNote';
 import NoteList from "../components/NoteList"
+import SearchBar from '../components/SearchBar';
 
 function Home() {
   return (
@@ -12,6 +13,7 @@ function Home() {
       <div className="main_container">
         <Menu />
         <div className='notes_container'>
+          <SearchBar />
           <AddNote />
           <NoteList />
         </div>

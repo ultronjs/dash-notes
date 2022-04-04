@@ -11,6 +11,7 @@ import ColorPallete from "./ColorPallete";
 
 function EditNote({ noteDetails, setEdit }) {
   const { updateNote, addNoteToArchive } = useNotes();
+  console.log(noteDetails)
   const editNoteObj = {
     _id: noteDetails._id,
     title: noteDetails.title,
@@ -65,20 +66,13 @@ function EditNote({ noteDetails, setEdit }) {
               onClick={() => setColorPallete((prevStatus) => !prevStatus)}
             />
           )}
-          {editNote.archive ? (
-            <BiArchiveOut size={25} onClick={changeArchiveStatus} />
-          ) : (
-            <BiArchiveIn size={25} onClick={()=>{
-              changeArchiveStatus();
-              addNoteToArchive(editNote)
-            }} />
-          )}
           <MdLabelOutline size={25} />
           {/* <MdLabelOutline size={25} />
         <BsArchive size={25} />
         <FiTrash size={25} /> */}
           <button
             onClick={() => {
+              console.log(editNote)
               updateNote(editNote, editContent);
               setEdit(false);
             }}

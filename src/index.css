@@ -130,6 +130,7 @@ code {
 
 .add_note_title,.note_title{
   background-color: transparent;
+  word-wrap: break-word;
   border: none;
   padding: 1rem;
   font-size: 1.5rem;
@@ -137,6 +138,7 @@ code {
   width: 92%;
 }
 .notes_editor,.note_body {
+  word-wrap: break-word;
   min-height: 10rem;
   z-index: 0;
   border-radius: 0.25rem;
@@ -162,6 +164,25 @@ code {
 }
 .empty_image{  
     height: 25rem;
+}
+.search_container{
+  margin-left:5rem;
+  margin-right: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search_input{
+  border-radius: 5px;
+  padding: 10px;
+  background-color: transparent;
+  width: 95%;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.filter_icon{
+  position: relative;
+  right: 2.2rem;
 }
 .color_pallete_container{
   margin-right: 12rem;

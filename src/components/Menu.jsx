@@ -1,15 +1,23 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React,{ useState } from 'react'
+import { NavLink,useNavigate } from 'react-router-dom'
 import {AiOutlineHome} from "react-icons/ai"
 import {MdLabelOutline} from "react-icons/md"
 import {BsArchive} from "react-icons/bs"
 import {FiTrash} from "react-icons/fi"
 import {CgProfile} from "react-icons/cg"
 import {VscSignOut} from "react-icons/vsc"
+import { useAuth } from '../context'
 
 function Menu() {
+  const navigate = useNavigate()
+  const {signInStatusDispatch} = useAuth()
+  const logOut = () => {
+    localStorage.removeItem("token");
+    signInStatusDispatch({ type: "SIGN_OUT" });
+    navigate("/")
+  };
   return (
-    <div className="menu flex flex-col flex-jc-space-between">
+    <div className="menu flex flex-col flex-jc-space-between mb-small">
       <div className="flex flex-col">
         <NavLink
           className="link_wrapper menu_item flex flex-ai-center fs-m"
@@ -54,7 +62,7 @@ function Menu() {
           <span className="text-primary">@swapnilbansal</span>
         </div>
 
-        <VscSignOut size={30} />
+        <VscSignOut size={30} onClick={logOut} />
       </div>
     </div>
   );

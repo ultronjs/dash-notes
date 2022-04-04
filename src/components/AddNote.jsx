@@ -8,6 +8,7 @@ import {GrPowerReset} from "react-icons/gr"
 import {MdLabelOutline} from "react-icons/md"
 import { useNotes } from "../context";
 import ColorPallete from "./ColorPallete"
+import { formatDate } from "../backend/utils/authUtils";
 function AddNote() {
   const noteInitialObj = {
     title: "",
@@ -17,6 +18,7 @@ function AddNote() {
     label: "",
     archive:false,
     tags:[],
+    createdAt:new Date(),
   };
   const [showColorPallete,setColorPallete] = useState(false)
   const {postNote} = useNotes()

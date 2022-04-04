@@ -24,9 +24,10 @@ function ArchiveList() {
             <span>Archive Notes</span>
           </div>
           <div className="notes_list_container">
-            {archiveNotes.map((element) => (
-              <Notes noteDetails={element} />
-            ))}
+            {archiveNotes.map((element) => {
+              element.archive=true;
+              return (<Notes noteDetails={element} />)}
+            )}
           </div>
         </div>
       ):<EmptyArchive />}

@@ -6,6 +6,9 @@ import { BsFillPinFill, BsPin } from "react-icons/bs";
 function NoteList() {
   const { notes, getNotes } = useNotes();
   useEffect(()=>{
+    getNotes();
+  },[])
+  useEffect(()=>{
     console.log("i m getting triggered")
     setPinnedNotes(()=>notes.filter(element=> element.pinned))
     setOtherPinnedNotes(() => 
