@@ -1,11 +1,6 @@
 import React,{ useState } from 'react'
 import { NavLink,useNavigate } from 'react-router-dom'
-import {AiOutlineHome} from "react-icons/ai"
-import {MdLabelOutline} from "react-icons/md"
-import {BsArchive} from "react-icons/bs"
-import {FiTrash} from "react-icons/fi"
-import {CgProfile} from "react-icons/cg"
-import {VscSignOut} from "react-icons/vsc"
+import {AiOutlineHome,MdLabelOutline,BsArchive,FiTrash,CgProfile,VscSignOut} from "../icons"
 import { useAuth } from '../context'
 
 function Menu() {

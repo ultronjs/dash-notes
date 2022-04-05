@@ -1,10 +1,9 @@
 import React ,{ useState }from 'react'
-import {GoSettings} from "react-icons/go"
+import { GoSettings } from '../icons';
 import FilterModal from './FilterModal';
 
 function SearchBar() {
     const [showFilterModal,setShowFilterModal] = useState(false)
-    console.log(showFilterModal)
   return (
     <>
       <div className="search_container">

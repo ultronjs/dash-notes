@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import Editor from './Editor'
 import "../index.css"
-import { BsPin, BsFillPinFill } from "react-icons/bs";
-import { MdOutlineColorLens, MdColorLens } from "react-icons/md";
-import { BiArchiveIn, BiArchiveOut } from "react-icons/bi";
-import {GrPowerReset} from "react-icons/gr"
-import { MdLabelOutline, MdLabel } from "react-icons/md";
+import {
+  BsPin,
+  BsFillPinFill,
+  MdOutlineColorLens,
+  MdColorLens,
+  GrPowerReset,
+  MdLabelOutline,
+  MdLabel,
+} from "../icons";
 import { useNotes } from "../context";
 import ColorPallete from "./ColorPallete"
 import Select from "react-select";
@@ -49,15 +53,11 @@ function AddNote() {
     setNote((prevState) => ({ ...prevState, priority: e }));
   };
   const changeLabel = (e) => {
-    console.log(e)
     setNote((prevState) => ({
       ...prevState,
       tags: e,
     }));
   }
-  console.log(note)
-  // const{children}=parse(content).props
-  // console.log(children)
   return (
     <>
       <div className={`add_note ${note.color}`}>

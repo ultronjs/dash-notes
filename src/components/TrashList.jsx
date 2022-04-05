@@ -5,7 +5,6 @@ import EmptyTrash from "./EmptyTrash"
 
 function TrashList() {
     const {trashNotes,setTrashNotes} = useNotes()
-    console.log(trashNotes)
   return (
     <div>
       {trashNotes.length > 0? 

@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import Editor from "./Editor";
 import "../index.css";
-import { BsPin, BsFillPinFill } from "react-icons/bs";
-import { BiArchiveIn, BiArchiveOut } from "react-icons/bi";
-import { MdOutlineColorLens, MdColorLens } from "react-icons/md";
-import { MdLabelOutline, MdLabel } from "react-icons/md";
-import { GrPowerReset } from "react-icons/gr";
+import {
+  BsPin,
+  BsFillPinFill,
+  BiArchiveIn,
+  BiArchiveOut,
+  MdOutlineColorLens,
+  MdColorLens,
+  MdLabelOutline,
+  MdLabel,
+  GrPowerReset,
+} from "../icons";
 import { useNotes } from "../context";
 import ColorPallete from "./ColorPallete";
 import Select from "react-select";
@@ -26,7 +32,6 @@ function EditNote({ noteDetails, setEdit }) {
     { value: "Medium", label: "Medium", className: "badge_warning" },
     { value: "High", label: "High", className: "badge_danger" },
   ];
-  console.log(noteDetails)
   const editNoteObj = {
     _id: noteDetails._id,
     title: noteDetails.title,
@@ -38,7 +43,6 @@ function EditNote({ noteDetails, setEdit }) {
     priority: noteDetails.priority,
     createdAt: noteDetails.createdAt,
   };
-  console.log(noteDetails,editNoteObj);
   const [showColorPallete, setColorPallete] = useState(false);
   const [showLabel, setShowLabel] = useState(false);
   const [editNote, setEditNote] = useState(editNoteObj);
@@ -61,9 +65,6 @@ function EditNote({ noteDetails, setEdit }) {
       tags:e
     }));
   };
-  console.log(editNote);
-  // const{children}=parse(content).props
-  // console.log(children)
   return (
     <div className="mb-x-small">
       <div className={`add_note edit_note ${editNote.color}`}>
@@ -139,7 +140,6 @@ function EditNote({ noteDetails, setEdit }) {
             )}
             <button
               onClick={() => {
-                console.log(editNote);
                 updateNote(editNote, editContent);
                 setEdit(false);
               }}

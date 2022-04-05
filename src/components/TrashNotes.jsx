@@ -1,10 +1,9 @@
 import React from 'react'
-import {FaTrashRestoreAlt} from "react-icons/fa"
+import { FaTrashRestoreAlt } from '../icons';
 import { useNotes } from '../context';
 
 function TrashNotes({noteDetails}) {
-    const {restoreTrashNoteToArchiveNotes,restoreTrashNoteToActiveNotes} = useNotes()
-    console.log(noteDetails)
+    const {restoreTrashNoteToActiveNotes} = useNotes()
   return (
     <>
       <div className={`my-x-small note ${noteDetails.color}`}>

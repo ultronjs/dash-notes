@@ -51,7 +51,6 @@ const NotesProvider = ({children}) => {
     };
 
     const deleteNote = async (note) => {
-      console.log(note)
       try {
         const { status, data } = await privateInstance({
           method: "delete",
@@ -76,7 +75,6 @@ const NotesProvider = ({children}) => {
         ...notes,
         description: parse(content).props.children
       };
-      console.log(note)
       try {
         const { status, data } = await privateInstance({
           method: "post",
@@ -184,30 +182,6 @@ const NotesProvider = ({children}) => {
         console.error(error);
       }
     };
-    // const restoreTrashNoteToArchiveNotes = async (note) => {
-    //   note.archive=false
-    //   try {
-    //     const { status, data } = await privateInstance({
-    //       method: "post",
-    //       url: "/notes",
-    //       data: {
-    //         note,
-    //       },
-    //     });
-    //     if (status === 201) {
-    //       setTrashNotes((prevState) =>
-    //       prevState.filter((element) => element._id !== note._id)
-    //         );
-    //       return { status, data };
-    //     }
-    //   } catch (error) {
-    //     addToast({
-    //       type: "Error",
-    //       msg: "Unable to Add Note",
-    //     });
-    //     console.error(error);
-    //   }
-    // };
     const restoreTrashNoteToActiveNotes = async (note) => {
       note.archive =false
       try {

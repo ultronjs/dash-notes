@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { MdLabelOutline } from "react-icons/md";
-import { BsArchive } from "react-icons/bs";
-import { FiTrash } from "react-icons/fi";
-import {GrEdit} from "react-icons/gr"
+import {
+  MdLabelOutline,
+  FiTrash,
+  GrEdit,
+  BiArchiveIn,
+  BiArchiveOut,
+} from "../icons";
 import EditNote from "./EditNote";
-import { BiArchiveIn, BiArchiveOut } from "react-icons/bi";
 import { useNotes } from "../context";
 
 function Notes({ noteDetails }) {
@@ -62,7 +64,6 @@ function Notes({ noteDetails }) {
                 <BiArchiveIn
                   size={25}
                   onClick={() => {
-                    console.log(noteDetails);
                     addNoteToArchive(noteDetails);
                   }}
                 />
