@@ -117,7 +117,7 @@ code {
   padding-bottom: 1rem;
 }
 .add_note,.note{
-  margin: 2rem 5rem;
+  margin: 1rem 5rem;
   margin-bottom: 0;
   min-height: 10rem;
   z-index: 0;
@@ -162,8 +162,19 @@ code {
   font-size: 1.5rem;
   font-weight: 600;
 }
+.label_heading{
+  margin: 0rem 5rem;
+  font-size: 1rem;
+  font-weight: 500;
+
+}
 .empty_image{  
     height: 25rem;
+}
+.selection_menu,.selection_menu_option{
+  background-color: transparent;
+  padding: 10px;
+  border-radius: 5px;
 }
 .search_container{
   margin-left:5rem;
@@ -200,6 +211,10 @@ code {
   width: 25px;
   border-radius: 50%;
 }
+.badge_primary{
+  color: var(--primary-color);
+  background-color: var(--primary-background);
+}
 .bg_yellow{
   background-color: #FFE66E;
 }
@@ -221,8 +236,8 @@ code {
 .bg_silver{
   background-color: #767676;
 }
-.bg_silver::placeholder{
-  color: white;
+.bg_silver > input::placeholder{
+  color: black;
 }
 /*Form Container for the form such as (Loign,SignUp)*/
 .form_container{

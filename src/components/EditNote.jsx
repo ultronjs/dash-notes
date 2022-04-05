@@ -1,29 +1,50 @@
 import React, { useState } from "react";
 import Editor from "./Editor";
 import "../index.css";
-import { BsPin, BsFillPinFill } from "react-icons/bs";
-import { BiArchiveIn, BiArchiveOut } from "react-icons/bi";
-import { MdOutlineColorLens, MdColorLens } from "react-icons/md";
-import { MdLabelOutline } from "react-icons/md";
-import { GrPowerReset } from "react-icons/gr";
+import {
+  BsPin,
+  BsFillPinFill,
+  BiArchiveIn,
+  BiArchiveOut,
+  MdOutlineColorLens,
+  MdColorLens,
+  MdLabelOutline,
+  MdLabel,
+  GrPowerReset,
+} from "../icons";
 import { useNotes } from "../context";
 import ColorPallete from "./ColorPallete";
+import Select from "react-select";
 
 function EditNote({ noteDetails, setEdit }) {
   const { updateNote, addNoteToArchive } = useNotes();
-  console.log(noteDetails)
+  const tagOptions = [
+    { value: "Home", label: "Home" },
+    { value: "Work", label: "Work" },
+    { value: "Hobby", label: "Hobby" },
+    { value: "Study", label: "Study" },
+    { value: "Passion", label: "Passion" },
+    { value: "Preparation", label: "Preparation" },
+    { value: "Others", label: "Others" },
+  ];
+  const priorityOptions = [
+    { value: "Low", label: "Low", className: "badge_success" },
+    { value: "Medium", label: "Medium", className: "badge_warning" },
+    { value: "High", label: "High", className: "badge_danger" },
+  ];
   const editNoteObj = {
     _id: noteDetails._id,
     title: noteDetails.title,
     description: noteDetails.description,
     pinned: noteDetails.pinned,
     color: noteDetails.color,
-    label: noteDetails.label,
     archive: noteDetails.archive,
     tags: noteDetails.tags,
+    priority: noteDetails.priority,
+    createdAt: noteDetails.createdAt,
   };
-  console.log(noteDetails,editNoteObj);
   const [showColorPallete, setColorPallete] = useState(false);
+  const [showLabel, setShowLabel] = useState(false);
   const [editNote, setEditNote] = useState(editNoteObj);
   const [editContent, setEditContent] = useState(noteDetails.description);
   const onChangeHandler = (e) => {
@@ -35,9 +56,15 @@ function EditNote({ noteDetails, setEdit }) {
   const changeArchiveStatus = () => {
     setEditNote((prevState) => ({ ...prevState, archive: !prevState.archive }));
   };
-  console.log(editNote);
-  // const{children}=parse(content).props
-  // console.log(children)
+  const changePriorityStatus = (e) => {
+    setEditNote((prevState) => ({ ...prevState, priority: e }));
+  };
+  const changeLabel = (e) => {
+    setEditNote((prevState) => ({
+      ...prevState,
+      tags:e
+    }));
+  };
   return (
     <div className="mb-x-small">
       <div className={`add_note edit_note ${editNote.color}`}>
@@ -54,32 +81,73 @@ function EditNote({ noteDetails, setEdit }) {
           <BsPin onClick={changePinnedStatus} size={25} />
         )}
         <Editor content={editContent} setContent={setEditContent} />
-        <div className="add_note_footer flex flex-jc-flex-end flex-ai-center gap-m mr-small">
-          {showColorPallete ? (
-            <MdColorLens
-              size={25}
-              onClick={() => setColorPallete((prevStatus) => !prevStatus)}
+        <div className="add_note_footer flex flex-jc-space-between">
+          <div className="flex flex-ai-center gap-m mr-small ml-x-small">
+            <span>Priority:</span>
+            <Select
+              defaultValue={noteDetails.priority}
+              name="priority"
+              options={priorityOptions}
+              className="basic-select"
+              classNamePrefix="select"
+              onChange={changePriorityStatus}
             />
-          ) : (
-            <MdOutlineColorLens
-              size={25}
-              onClick={() => setColorPallete((prevStatus) => !prevStatus)}
-            />
-          )}
-          <MdLabelOutline size={25} />
-          {/* <MdLabelOutline size={25} />
-        <BsArchive size={25} />
-        <FiTrash size={25} /> */}
-          <button
-            onClick={() => {
-              console.log(editNote)
-              updateNote(editNote, editContent);
-              setEdit(false);
-            }}
-            className="btn btn_primary"
-          >
-            Update
-          </button>
+          </div>
+          <div className="flex flex-ai-center gap-m mr-small">
+            {showColorPallete ? (
+              <MdColorLens
+                size={25}
+                onClick={() => setColorPallete((prevStatus) => !prevStatus)}
+              />
+            ) : (
+              <MdOutlineColorLens
+                size={25}
+                onClick={() => setColorPallete((prevStatus) => !prevStatus)}
+              />
+            )}
+            {showLabel ? (
+              <>
+                <MdLabel
+                  size={25}
+                  onClick={() => setShowLabel((prevState) => !prevState)}
+                />
+                <Select
+                  isMulti
+                  defaultValue={noteDetails.tags.map(element=>element)}
+                  name="tags"
+                  options={tagOptions}
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                  onChange={changeLabel}
+                />
+                {/* <select className="selection_menu" onChange={changeLabel}>
+                  <option className="selection_menu_option" value="Orange">
+                    Orange
+                  </option>
+                  <option className="selection_menu_option" value="Radish">
+                    Radish
+                  </option>
+                  <option className="selection_menu_option" value="Cherry">
+                    Cherry
+                  </option>
+                </select> */}
+              </>
+            ) : (
+              <MdLabelOutline
+                size={25}
+                onClick={() => setShowLabel((prevState) => !prevState)}
+              />
+            )}
+            <button
+              onClick={() => {
+                updateNote(editNote, editContent);
+                setEdit(false);
+              }}
+              className="btn btn_primary"
+            >
+              Update
+            </button>
+          </div>
         </div>
       </div>
       {showColorPallete && <ColorPallete setNote={setEditNote} />}

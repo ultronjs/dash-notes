@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNotes } from "../context";
 import Notes from "./Notes";
 import EmptyArchive from "./EmptyArchive";
-import { BsFillPinFill, BsPin } from "react-icons/bs";
 
 function ArchiveList() {
   const {
     archiveNotes,
     getArchiveNotes,
-    restoreNoteFromArchiveNote,
-    deleteNoteFromArchiveNote,
   } = useNotes();
   useEffect(() => {
-    console.log("i m getting triggered");
     getArchiveNotes()
   }, []);
-  console.log(archiveNotes);
   return (
     <div>
       {archiveNotes.length > 0 ? (

@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import { useNotes } from '../context'
 import Notes from './Notes'
-import { BsFillPinFill, BsPin } from "react-icons/bs";
+import { BsFillPinFill, BsPin } from "../icons"
 
 function NoteList() {
   const { notes, getNotes } = useNotes();
@@ -9,15 +9,12 @@ function NoteList() {
     getNotes();
   },[])
   useEffect(()=>{
-    console.log("i m getting triggered")
     setPinnedNotes(()=>notes.filter(element=> element.pinned))
     setOtherPinnedNotes(() => 
       notes.filter((element) => !element.pinned));
   },[notes])
-  console.log(notes)
   const [pinnedNotes,setPinnedNotes] = useState([])
   const [otherNotes,setOtherPinnedNotes] = useState([])
-  console.log(notes,pinnedNotes,otherNotes)
   return (
     <div>
       {pinnedNotes.length > 0 && (

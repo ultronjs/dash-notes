@@ -24,7 +24,11 @@ const NotesProvider = ({children}) => {
     };
 
     const postNote = async (notes,content) => {
-      const note = {...notes,description:parse(content).props.children}
+      if(content !==""){
+        var note = {...notes,description:parse(content).props.children}}
+      else{
+        var note = {...notes}
+      }
       try {
         const { status, data } = await privateInstance({
           method: "post",
@@ -47,7 +51,6 @@ const NotesProvider = ({children}) => {
     };
 
     const deleteNote = async (note) => {
-      console.log(note)
       try {
         const { status, data } = await privateInstance({
           method: "delete",
@@ -72,7 +75,6 @@ const NotesProvider = ({children}) => {
         ...notes,
         description: parse(content).props.children
       };
-      console.log(note)
       try {
         const { status, data } = await privateInstance({
           method: "post",
@@ -180,16 +182,8 @@ const NotesProvider = ({children}) => {
         console.error(error);
       }
     };
-    const restoreTrashNoteToArchiveNotes = (note) => {
-      const {status}=addNoteToArchive(note)
-      if(status===201){
-        setTrashNotes((prevState) =>
-          prevState.filter((element) => element._id !== note._id)
-        );
-      }
-
-    }
     const restoreTrashNoteToActiveNotes = async (note) => {
+      note.archive =false
       try {
         const { status, data } = await privateInstance({
           method: "post",
@@ -232,7 +226,6 @@ const NotesProvider = ({children}) => {
           deleteNoteFromArchiveNote,
           trashNotes,
           setTrashNotes,
-          restoreTrashNoteToArchiveNotes,
           restoreTrashNoteToActiveNotes,
         }}
       >
