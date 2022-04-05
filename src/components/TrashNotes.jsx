@@ -23,7 +23,7 @@ function TrashNotes({noteDetails}) {
             {noteDetails.archive ? (
               <FaTrashRestoreAlt
                 size={25}
-                onClick={() => restoreTrashNoteToArchiveNotes(noteDetails)}
+                onClick={() => restoreTrashNoteToActiveNotes(noteDetails)}
               />
             ) : (
               <FaTrashRestoreAlt

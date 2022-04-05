@@ -20,6 +20,25 @@ function Notes({ noteDetails }) {
       {!edit ? (
         <div className={`my-x-small note ${noteDetails.color}`}>
           <span className="note_title">{noteDetails.title}</span>
+          <div className="note_tags_priority px-x-small py-x-small flex flex-jc-space-between">
+            <div className="flex gap-s">
+              <span>Tags:</span>
+              {noteDetails.tags.length > 0 &&
+                noteDetails.tags.map((element) => (
+                  <span className="badge badge_pill badge_primary">
+                    {element.label}
+                  </span>
+                ))}
+            </div>
+            <div>
+              <span>Priority: </span>
+              <span
+                class={`badge badge_pill ${noteDetails.priority.className}`}
+              >
+                {noteDetails.priority.label}
+              </span>
+            </div>
+          </div>
           <div className="note_body">{noteDetails.description}</div>
           <div className="note_footer flex flex-jc-space-between flex-ai-center gap-m mr-small">
             <span>
@@ -54,10 +73,7 @@ function Notes({ noteDetails }) {
                   onClick={() => deleteNoteFromArchiveNote(noteDetails)}
                 />
               ) : (
-                <FiTrash
-                  size={25}
-                  onClick={() => deleteNote(noteDetails)}
-                />
+                <FiTrash size={25} onClick={() => deleteNote(noteDetails)} />
               )}
 
               {!noteDetails.archive && (
