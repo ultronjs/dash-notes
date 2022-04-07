@@ -35,7 +35,7 @@ function Notes({ noteDetails }) {
             <div>
               <span>Priority: </span>
               <span
-                class={`badge badge_pill ${noteDetails.priority.className}`}
+                className={`badge badge_pill ${noteDetails.priority.className}`}
               >
                 {noteDetails.priority.label}
               </span>
@@ -52,7 +52,6 @@ function Notes({ noteDetails }) {
                 new Date(noteDetails.createdAt).getFullYear()}
             </span>
             <div className="flex flex-ai-center flex-jc-center gap-m">
-              <MdLabelOutline size={25} />
               {noteDetails.archive ? (
                 <BiArchiveOut
                   size={25}

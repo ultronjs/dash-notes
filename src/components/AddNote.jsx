@@ -13,21 +13,8 @@ import {
 import { useNotes } from "../context";
 import ColorPallete from "./ColorPallete"
 import Select from "react-select";
+import {tagOptions,priorityOptions} from "../utils/selectMenuOptions"
 function AddNote() {
-  const tagOptions = [
-    { value: "Home", label: "Home" },
-    { value: "Work", label: "Work"},
-    { value: "Hobby", label: "Hobby"},
-    { value: "Study", label: "Study"},
-    { value: "Passion", label: "Passion"  },
-    { value: "Preparation", label: "Preparation" },
-    { value: "Others", label: "Others"  }
-  ];
-  const priorityOptions = [
-    { value: "Low", label: "Low", className: "badge_success" },
-    { value: "Medium", label: "Medium", className: "badge_warning" },
-    { value: "High", label: "High", className: "badge_danger" },
-  ];
   const noteInitialObj = {
     title: "",
     description: "",
@@ -79,6 +66,7 @@ function AddNote() {
             <span>Priority:</span>
             <Select
               defaultValue={noteInitialObj.priority}
+              value={note.priority}
               name="priority"
               options={priorityOptions}
               className="basic-select"
@@ -115,6 +103,7 @@ function AddNote() {
                   defaultValue={noteInitialObj.tags}
                   isMulti
                   name="tags"
+                  value={note.tags}
                   options={tagOptions}
                   className="basic-multi-select"
                   classNamePrefix="select"

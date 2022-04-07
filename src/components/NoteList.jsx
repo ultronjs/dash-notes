@@ -1,20 +1,29 @@
 import React,{ useEffect, useState } from 'react'
-import { useNotes } from '../context'
+import { useFilter, useNotes } from '../context'
 import Notes from './Notes'
 import { BsFillPinFill, BsPin } from "../icons"
+import { getFilteredData,searchFilter } from "../utils/filter";
 
 function NoteList() {
   const { notes, getNotes } = useNotes();
+  const {filter,search} = useFilter()
+  const [filteredNotes, setFilteredNotes] = useState([]);
   useEffect(()=>{
     getNotes();
   },[])
   useEffect(()=>{
-    setPinnedNotes(()=>notes.filter(element=> element.pinned))
-    setOtherPinnedNotes(() => 
-      notes.filter((element) => !element.pinned));
-  },[notes])
+      setPinnedNotes(() =>
+        getFilteredData(filter, notes).filter((element) => element.pinned)
+      );
+      setOtherPinnedNotes(() =>
+        getFilteredData(filter, notes).filter((element) => !element.pinned)
+      );
+  },[notes,filter])
   const [pinnedNotes,setPinnedNotes] = useState([])
   const [otherNotes,setOtherPinnedNotes] = useState([])
+
+  console.log(filteredNotes)
+  console.log(notes)
   return (
     <div>
       {pinnedNotes.length > 0 && (
@@ -24,7 +33,7 @@ function NoteList() {
             <BsFillPinFill />
           </div>
           <div className="notes_list_container">
-            {pinnedNotes.map((element) => (
+            {searchFilter(pinnedNotes, search).map((element) => (
               <Notes noteDetails={element} />
             ))}
           </div>
@@ -38,7 +47,7 @@ function NoteList() {
             <BsPin />
           </div>
           <div className="notes_list_container">
-            {otherNotes.map((element) => (
+            {searchFilter(otherNotes, search).map((element) => (
               <Notes noteDetails={element} />
             ))}
           </div>

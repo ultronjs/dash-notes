@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import { useNotes } from "../context";
+import { useFilter, useNotes } from "../context";
 import Notes from "./Notes";
 import EmptyArchive from "./EmptyArchive";
+import { searchFilter } from "../utils/filter";
 
 function ArchiveList() {
+  const { search } = useFilter();
   const {
     archiveNotes,
     getArchiveNotes,
@@ -19,13 +21,15 @@ function ArchiveList() {
             <span>Archive Notes</span>
           </div>
           <div className="notes_list_container">
-            {archiveNotes.map((element) => {
-              element.archive=true;
-              return (<Notes noteDetails={element} />)}
-            )}
+            {searchFilter(archiveNotes,search).map((element) => {
+              element.archive = true;
+              return <Notes noteDetails={element} />;
+            })}
           </div>
         </div>
-      ):<EmptyArchive />}
+      ) : (
+        <EmptyArchive />
+      )}
     </div>
   );
 }

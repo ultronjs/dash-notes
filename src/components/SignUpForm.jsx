@@ -26,7 +26,13 @@ function SignUpForm() {
       return signUp.password === signUp.confirmPassword;
     };
     const onSubmit = async () => {
-      if (checkPasswordMatches()) {
+      if (
+        checkPasswordMatches() &&
+        signUp.fullName !== "" &&
+        signUp.email !== "" &&
+        signUp.password !== "" &&
+        signUp.confirmPassword !== ""
+      ) {
         try {
           const { status, data } = await publicInstance({
             method: "post",
@@ -50,7 +56,7 @@ function SignUpForm() {
       } else {
         addToast({
           type: "Error",
-          msg: "Password and Confirm Password are not same",
+          msg: "Please fill the SignUp Form Correctly",
         });
       }
     };

@@ -1,9 +1,9 @@
 import React from 'react'
-import { FaTrashRestoreAlt } from '../icons';
+import { FaTrashRestoreAlt, FiTrash } from "../icons";
 import { useNotes } from '../context';
 
 function TrashNotes({noteDetails}) {
-    const {restoreTrashNoteToActiveNotes} = useNotes()
+    const { restoreTrashNoteToActiveNotes, removeFromTrash } = useNotes();
   return (
     <>
       <div className={`my-x-small note ${noteDetails.color}`}>
@@ -30,6 +30,8 @@ function TrashNotes({noteDetails}) {
                 onClick={() => restoreTrashNoteToActiveNotes(noteDetails)}
               />
             )}
+            <FiTrash size={27} 
+            onClick={() => removeFromTrash(noteDetails._id)}/>
           </div>
         </div>
       </div>
