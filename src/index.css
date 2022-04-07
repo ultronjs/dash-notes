@@ -57,6 +57,11 @@ code {
     grid-template-areas:
         "menu notes_container notes_container notes_container"
   }
+.empty_container{
+    padding-top: 4.5rem;
+    min-height: 85vh;
+    gap: .5rem;
+}
 .landing_page_container{
   display: flex;
   justify-content: center;
@@ -171,6 +176,10 @@ code {
 .empty_image{  
     height: 25rem;
 }
+.not_found_image{
+    height: 80vh;
+    width: 50vw;
+}
 .selection_menu,.selection_menu_option{
   background-color: transparent;
   padding: 10px;
@@ -194,6 +203,12 @@ code {
 .filter_icon{
   position: relative;
   right: 2.2rem;
+}
+.modal{
+  height: fit-content;
+}
+.modal_header{
+  border-bottom: 1px solid grey;
 }
 .color_pallete_container{
   margin-right: 12rem;

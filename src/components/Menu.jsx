@@ -49,7 +49,6 @@ function Menu() {
           <CgProfile />
           Profile
         </NavLink>
-        <button className="btn btn_primary">Create New Note</button>
       </div>
       <div className="user_name_container flex flex-jc-space-between">
         <div className="flex flex-col">

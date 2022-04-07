@@ -1,14 +1,16 @@
 import React from 'react'
-import { useNotes } from '../context'
+import { useFilter, useNotes } from '../context'
 import TrashNotes from "./TrashNotes";
 import EmptyTrash from "./EmptyTrash"
+import { searchFilter } from "../utils/filter";
 
 function TrashList() {
-    const {trashNotes,setTrashNotes} = useNotes()
+    const {trashNotes} = useNotes()
+    const { search } = useFilter()
   return (
     <div>
       {trashNotes.length > 0? 
-        trashNotes.map((element,index) => <TrashNotes key={index} noteDetails={element} />):
+        searchFilter(trashNotes,search).map((element,index) => <TrashNotes key={index} noteDetails={element} />):
         <EmptyTrash />}
     </div>
   );

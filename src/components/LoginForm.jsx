@@ -10,6 +10,10 @@ function LoginForm() {
     email: "",
     password: "",
   };
+  const guestLoginCreds = {
+    email: "swapnilbansal@gmail.com",
+    password: "swapnilbansal",
+  };
   const [signIn, setSignIn] = useState(initialSignInState);
   const { signInStatusDispatch } = useAuth();
   const { addToast } = useToast();
@@ -26,6 +30,28 @@ function LoginForm() {
         url: "/auth/login",
         data: {
           ...signIn,
+        },
+      });
+      if (status === 200) {
+        localStorage.setItem("token", data.encodedToken);
+        signInStatusDispatch({ type: "SET_USER", payload: data });
+        navigate("/home");
+      }
+    } catch (error) {
+      console.log(error);
+      addToast({
+        type: "Error",
+        msg: "Unable to Login",
+      });
+    }
+  };
+  const loginWithGuestLogin = async () => {
+    try {
+      const { status, data } = await publicInstance({
+        method: "post",
+        url: "/auth/login",
+        data: {
+          ...guestLoginCreds,
         },
       });
       if (status === 200) {
@@ -84,6 +110,12 @@ function LoginForm() {
           <div className="text_center">
             <button onClick={onSubmit} className="btn btn_primary">
               LOGIN
+            </button>
+            <button
+              onClick={loginWithGuestLogin}
+              className="btn btn_primary_outline"
+            >
+              LOGIN WITH GUEST LOGIN
             </button>
           </div>
         </div>

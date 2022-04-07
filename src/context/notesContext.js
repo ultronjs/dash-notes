@@ -207,6 +207,11 @@ const NotesProvider = ({children}) => {
         console.error(error);
       }
     }
+    const removeFromTrash = async (id) => {
+      setTrashNotes((prevState) =>
+          prevState.filter((element) => element._id !== id))
+
+    }
 
     const [notes, notesDispatch] = useReducer(notesReducer, []);
     const [archiveNotes,archiveNotesDispatch] = useReducer(archiveNotesReducer,[])
@@ -227,6 +232,7 @@ const NotesProvider = ({children}) => {
           trashNotes,
           setTrashNotes,
           restoreTrashNoteToActiveNotes,
+          removeFromTrash,
         }}
       >
         {children}
