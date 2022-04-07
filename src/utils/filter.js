@@ -1,6 +1,5 @@
 export const getFilteredData = (state,notes) => {
-  console.log(sortBy(state,filterBy(state,notes)));
-  return sortBy(state, notes);
+  return sortBy(state, filterBy(state, notes));
 
 }
 
@@ -46,18 +45,22 @@ export const sortBy = (state, notes) => {
 export const filterBy = (state,notes) => {
   switch(state.filterBy.value){
     case "Labels/Tags":
-      console.log([
-        ...notes.filter((note) =>
-          note.tags.forEach((tag) =>state.state.filterByValue)
+      if(state.filterByValue.length===0)
+          return [...notes]
+      return [...notes.filter((note) =>
+          state?.filterByValue.some((element) =>note.tags.some(tag=>tag.value===element))
         ),
-      ]);
-      return [...notes]
+      ]
     case "Priority":
+      if (state.filterByValue.length === 0)
+        return [...notes];
       return [
-        ...notes.filter((note) =>
-          state.filterByValue.some(element => element === note.priority.label)
-        ),
-      ];
+          ...notes.filter((note) =>
+            state?.filterByValue.some(
+              (element) => element === note.priority.label
+            )
+          ),
+        ];
     default:
      return [...notes]
   }
