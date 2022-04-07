@@ -6,7 +6,6 @@ import {sortByOptions,filterOptions,tagOptions,priorityOptions} from "../utils/s
 function FilterModal({ setShowFilterModal }) {
   const { filter, filterDispatch } = useFilter();
   const [showLabelOrPriority, setShowLabelOrPriority] = useState(filter.filterBy.label);
-  console.log(showLabelOrPriority);
   return (
     <>
       <div class="modal">
