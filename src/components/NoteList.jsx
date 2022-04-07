@@ -22,8 +22,6 @@ function NoteList() {
   const [pinnedNotes,setPinnedNotes] = useState([])
   const [otherNotes,setOtherPinnedNotes] = useState([])
 
-  console.log(filteredNotes)
-  console.log(notes)
   return (
     <div>
       {pinnedNotes.length > 0 && (
